@@ -1,180 +1,180 @@
-SECTION,CATEGORY,DETAIL,DESCRIPTION
-=== THÔNG TIN CƠ BẢN ===,,,
-BASIC,Tên trò chơi,DotsLink,Kết nối các điểm để dẫn năng lượng
-BASIC,Thể loại,Puzzle / Casual / Connect-the-dots,Game giải đố kết nối
-BASIC,Nền tảng,PC (Windows); Mobile (iOS; Android),Hỗ trợ đa nền tảng
-BASIC,Engine,Unity (C#); Shaders: ShaderLab/HLSL,Công nghệ phát triển
-BASIC,Tầm nhìn chính,Vẽ đường nối giữa các điểm để dẫn năng lượng/hoàn thành mục tiêu mỗi màn. Đồ họa neon/flow shader.,Ý tưởng cốt lõi
-BASIC,Đối tượng mục tiêu,Tuổi 8+; Người chơi thích puzzle; casual; short sessions,Người chơi tiềm năng
-BASIC,Phong cách nghệ thuật,Minimal + neon glow; nền tối để làm nổi các đường,Thẩm mỹ trò chơi
-BASIC,Cách kiếm tiền,F2P + IAP (cosmetics; remove ads) + rewarded ads (power-up),Mô hình kinh doanh
-=== CORE LOOP (VÒ NƠI CỐT LÕI) ===,,,
-CORE_LOOP,Bước 1,Quan sát bảng,Người chơi xem lưới điểm và mục tiêu của màn
-CORE_LOOP,Bước 2,Lập kế hoạch,Xác định các điểm cần nối / nguồn và đích
-CORE_LOOP,Bước 3,Vẽ đường nối,Vẽ đường nối bằng chuột/touch theo luật game
-CORE_LOOP,Bước 4,Kích hoạt hiệu ứng,Năng lượng/hiệu ứng chạy; kiểm tra điều kiện hoàn thành
-CORE_LOOP,Bước 5,Nhận phần thưởng,Nhận điểm; sao; unlock level hoặc power-up
-CORE_LOOP,Bước 6,Lặp lại,Chọn màn tiếp theo hoặc thử lại/tối ưu
-=== CORE GAMEPLAY (TRÒ CHƠI CỐT LÕI) ===,,,
-CORE_GAMEPLAY,Mục tiêu chiến lược,Kết nối các dot cùng màu,Người chơi phải nối các điểm theo luật; dẫn năng lượng từ source tới sink
-CORE_GAMEPLAY,Luật cơ bản,Đường nối chỉ giữa dot liền kề (adjacency),Không thể nối dot ở xa; phải theo lưới
-CORE_GAMEPLAY,Luật tiêu chí,Đường thường giữa cùng màu; không cắt nhau (trừ bridge),Một số mode cho phép khác màu; bridge dùng power-up
-CORE_GAMEPLAY,Tài nguyên chính,Moves (nước đi) hoặc Time (thời gian),Mỗi vẽ đường = 1 move hoặc tiêu thụ thời gian
-CORE_GAMEPLAY,Phần thưởng,Điểm; sao (1-3); unlock level hoặc power-up,Hoàn thành sớm/ít nước → nhiều sao
-CORE_GAMEPLAY,Thất bại,Hết nước/thời gian mà chưa hoàn thành mục tiêu,Offer: thử lại; xem quảng cáo; mua power-up
-CORE_GAMEPLAY,Combo system,Nối liên tiếp nhiều đường = combo; mỗi combo +0.1x điểm,Combo 3 → x1.3; combo 10 → x2.0
-=== GAME MECHANIC (CƠ CHẾ CHI TIẾT) ===,,,
-MECHANIC,Dot (Điểm),Nút trên lưới có màu/loại: source; sink; neutral; blocker,Một số dot cho phép junction hoặc tái sử dụng
-MECHANIC,Link (Đường nối),Cạnh giữa hai dot liền kề,Chỉ nối theo adjacency; thường giữa cùng màu; không cắt nhau (trừ bridge)
-MECHANIC,Energy (Năng lượng),Luồng chảy theo đường nối hoàn chỉnh,Chạy từ Source→Sink; hiệu ứng shader energy pulse
-MECHANIC,Source (Điểm nguồn),Điểm bắt đầu năng lượng,Thường màu riêng; có thể có nhiều source
-MECHANIC,Sink (Điểm đích),Điểm kết thúc năng lượng,Thường match color với source; có thể có nhiều sink
-MECHANIC,Neutral (Điểm trung lập),Điểm không cần dẫn năng lượng qua,Có thể visit để tăng score hoặc hoàn thành mục tiêu
-MECHANIC,Blocker (Cản đường),Ô không thể đi qua; tạo chướng ngại,Dùng để tăng độ khó; bắt buộc tìm đường vòng
-MECHANIC,Junction,Dot cho phép >2 kết nối (thay vì 2),Giới thiệu cơ chế nhánh; power-up có thể unlock
-MECHANIC,Bridge (Cầu),Power-up cho phép cắt qua intersections,Sử dụng hạn chế (consumable); hoặc ứng dụng IAP
-MECHANIC,Power-up,Vật phẩm hỗ trợ: Erase; Bridge; SwapColors; TimeSlow,Có thể mua / nhận thưởng; cosmetic themes
-MECHANIC,Scoring (Tính điểm),baseScore + timeBonus + moveBonus * comboMultiplier,3 sao: >= 80% max score; 2 sao: >= 50%; 1 sao: >= 20%
-MECHANIC,Undo (Hoàn tác),Gỡ bỏ đường cuối cùng; limited per level,Desktop: right-click; Mobile: tap undo icon
-MECHANIC,Restart (Khởi động lại),Bắt đầu lại màn hiện tại từ đầu,Desktop: Space; Mobile: double-tap
-=== LEVEL DESIGN (THIẾT KẾ MÀN) ===,,,
-LEVEL_DESIGN,Cấu trúc,Chia thành Worlds (chương); mỗi world: 20-50 màn,Hệ thống unlock: vượt 3 sao unlock world tiếp theo
-LEVEL_DESIGN,Difficulty curve,Giới thiệu cơ chế cơ bản → kết hợp nhiều cơ chế → tối ưu/precision levels,Mỗi 5 màn một boss-challenge (cơ chế mới)
-LEVEL_DESIGN,Tutorial design,Hướng dẫn từng bước bằng overlay; bắt buộc hành động,Giới thiệu: dot; link; source; sink; blocker; combo
-LEVEL_DESIGN,Progression gates,Vượt X% sao tổng → unlock world tiếp theo,Ví dụ: 50% sao world 1 → unlock world 2
-LEVEL_DESIGN,Level variety,Các mode khác nhau: connect all; flow mode; energy mode; score mode,Flow mode: điền mọi ô lưới; Energy mode: dẫn nguồn tới sink
-LEVEL_DESIGN,Boss levels,Mỗi 5 màn một thách thức kỹ năng cao,Yêu cầu combine nhiều cơ chế; limited moves
-LEVEL_DESIGN,Daily challenge,Level đặc biệt mỗi ngày; server-side content,Cho cơ hội thêm rewards; encourage daily return
-LEVEL_DESIGN,Schema dữ liệu,id; world; gridWidth; gridHeight; dots[]; blockers[]; objectives; moveLimit; timeLimit; starCriteria; palette; shaderParams; solvable; author; notes,Lưu trong ScriptableObjects hoặc JSON
-LEVEL_DESIGN,Validation,Kiểm tra tự động khả năng giải quyết (solvability check); graph connectivity,Unit tests cho pathfinding; prevent unbeatable levels
-=== GAME ELEMENTS (YẾU TỐ TRỰC QUAN) ===,,,
-ELEMENTS,Dot visuals,Hình tròn neon với màu riêng; glow shader,Size: 32x32px (mobile) hoặc 48x48px (desktop)
-ELEMENTS,Link visuals,Đường nối neon từ dot này sang dot khác; glow effect,Width: 4-8px; animated when drawing; energy pulse when active
-ELEMENTS,Energy pulse,Hiệu ứng shader: mẫu sáng chạy dọc đường,Speed tunable; color theo source color
-ELEMENTS,Combo indicator,Text hiển thị số combo; tăng dần khi liên tiếp,Kích thước text tăng; animation scale-up
-ELEMENTS,Score display,Hiển thị tổng điểm hiện tại; update real-time,Bottom-right HUD; animates on change
-ELEMENTS,Move counter,Hiển thị remaining moves / time,Top-left HUD; color warning khi dưới 3 moves
-ELEMENTS,Star display,Hiển thị 1-3 sao đã đạt / còn có thể đạt,Dynamic: grayed-out nếu chưa đạt; gold khi đạt
-ELEMENTS,Power-up icons,Hiển thị available power-ups; greyed nếu used/unavailable,Clickable; drag-and-drop để áp dụng (tùy design)
-ELEMENTS,Particle effects,Burst particles khi hoàn thành combo hoặc level,Color-matched với theme; pool-based optimization
-ELEMENTS,Animations,Draw animation: trail shader khi vẽ; smooth ease,Fade-out khi undo; bounce khi combo
-ELEMENTS,Sound effects,Vẽ đường: bip; năng lượng chạy: whoosh; combo: chime; level complete: fanfare,Adjustable volume; can turn off
-ELEMENTS,Haptics (mobile),Rung khi hoàn thành combo; khi chạm lỗi,Intensity adjustable; can disable
-=== USER INTERFACE (GIAO DIỆN) ===,,,
-UI,Main Menu,Play; Settings; Shop; Leaderboard; Daily Challenge,Show total stars; seasonal offers; ads optional
-UI,Level Map,World overview; level icons; locked/unlocked status,Click to select level; show best score/stars
-UI,In-Game HUD,Lưới trung tâm; toolbar (undo; restart; power-ups); info bar,Objective; remaining moves/time; current score; combo
-UI,Pause Menu,Resume; Restart; Settings; Return to Menu,Bảo tồn trạng thái khi resume
-UI,Level Complete,Score breakdown; stars earned; rewards; next level / replay buttons,Show combo bonus; time bonus; move bonus calculation
-UI,Fail Screen,Show hint; Retry button; Watch ad button (for continue); Buy power-up button,Respect ad frequency (max 1-3 per session)
-UI,Tutorial,Step-by-step overlays; highlight target; require action; allow skip,Re-openable from settings menu
-UI,Settings,Audio (music/SFX toggle); Controls (sensitivity); Accessibility (colorblind mode; font size; vibration),Persist cross-session; cloud save recommended
-UI,Shop,Cosmetic themes; power-up packs; remove ads; seasonal bundles,Show prices; apply IAP confirmations; receipt tracking
-=== LEVEL PROGRESSION (CẤP ĐỘ & TIẾN ĐỘ) ===,,,
-PROGRESSION,World 1 Structure,20 levels: 4 tutorials + 16 main (1 boss at L5; 1 boss at L10; 1 boss at L15; 1 boss at L20),Introduce: dot; link; source; sink; scoring
-PROGRESSION,World 2 Structure,20 levels: introduce time-based mode; blockers increase,Boss levels test multi-source scenarios
-PROGRESSION,World 3 Structure,20 levels: introduce junction mechanic; complex layouts,Boss levels: precision + speed challenges
-PROGRESSION,Unlock system,Vượt >= 50% sao world N → unlock world N+1; hoặc vượt score threshold,Prevent soft-lock; always have playable path forward
-PROGRESSION,Soft caps,Leaderboard; season-based rankings; cosmetics as incentive past 100%,Endless/arcade mode available post-game
-PROGRESSION,Daily reset,Daily challenge resets at UTC 00:00 or configurable,Can store 1-3 unclaimed daily rewards
-PROGRESSION,Season pass,Optional cosmetic/power-up seasonal pass (tương lai),Not required for core gameplay; cosmetic only
-=== CONTENT & MONETIZATION (NỘI DUNG & KIẾM TIỀN) ===,,,
-MONETIZATION,Free-to-play core,Hoàn toàn playable mà không trả tiền,All levels unlock progressively; 3-star system not blocked by paywall
-MONETIZATION,IAP Options,Cosmetic themes; power-up packs (3-pack; 10-pack; bundle); remove ads; season pass,Prices: $0.99 - $9.99; tiered to match market
-MONETIZATION,Rewarded ads,Optional video ads offer: extra power-up; or continue after fail; or daily bonus,Frequency: max 1-3 per session; user-initiated
-MONETIZATION,Ad placement,Banner ads (optional; can remove via IAP); rewarded only on user tap,Respect users who pay; no intrusive popups
-MONETIZATION,Leaderboard cosmetics,Exclusive theme for top 100 players; seasonal reset,Encourage engagement; cosmetic-only advantage
-MONETIZATION,Seasonal events,Limited-time level packs; special cosmetics; themed content,4-week seasons; post-launch feature
-=== AUDIOVISUAL (ÂM THANH & HÌNH ẢNH) ===,,,
-AUDIOVISUAL,Music,Ambient electronic; tracks per world (upbeat for W1; relaxed for W2; intense for W3),Loops seamlessly; crossfade on world change
-AUDIOVISUAL,SFX - Draw,Subtle bip when dot connects,Non-intrusive; volume adjustable
-AUDIOVISUAL,SFX - Energy,Whoosh as energy pulses; pitch varies by link length,Emphasizes flow; satisfying
-AUDIOVISUAL,SFX - Combo,Chime at +1 combo; escalating pitch at higher combos,Celebration feedback; encourages player
-AUDIOVISUAL,SFX - Complete,Fanfare/ding when level complete; different tone per star count,Positive reinforcement; emotional reward
-AUDIOVISUAL,SFX - Fail,Sad trombone / buzz; soft so not frustrating,Acknowledge failure; prompt retry
-AUDIOVISUAL,Visual theme - W1,Neon red/blue/green lines; dark navy background; glow shader,Youthful; energetic; welcoming
-AUDIOVISUAL,Visual theme - W2,Neon purple/cyan; gradient background; flow trails,Mid-game aesthetic; maintains engagement
-AUDIOVISUAL,Visual theme - W3,Neon gold/white; particle-heavy; ultra-premium feel,Climax theme; reward player for progression
-AUDIOVISUAL,Accessibility - Colorblind,Add symbols (circle; square; triangle; cross) alongside colors,Supports Deuteranopia; Protanopia; Tritanopia modes
-AUDIOVISUAL,Accessibility - Font,Default 14pt; adjustable to 12pt-18pt,Affects HUD text; UI labels; menu items
-AUDIOVISUAL,Accessibility - Sound,Toggle: all; music only; SFX only; vibration only,Respect deaf/hard-of-hearing players
-=== TECHNICAL ARCHITECTURE (KIẾN TRÚC KỸ THUẬT) ===,,,
-TECHNICAL,Engine,Unity 2022 LTS or later; C# scripting,Cross-platform build (Windows; iOS; Android; WebGL)
-TECHNICAL,Project structure,Assets/Scripts (Core; UI; Managers); Assets/Art (Sprites; Shaders; Particles); Assets/Levels (JSON or ScriptableObjects); Assets/Audio,Modular for easy scaling
-TECHNICAL,GameManager,Singleton; manages game state; level load/unload; progression tracking,Persist across scenes; save/load via PlayerPrefs or cloud
-TECHNICAL,LevelManager,Load level data; instantiate grid; manage objectives; detect completion,Parse JSON or ScriptableObject; handle all level logic
-TECHNICAL,Grid system,2D array of cells; adjacency lookup; pathfinding validation,O(1) neighbor query; BFS/DFS for cycle detection
-TECHNICAL,Input system,Touch & mouse support; drag detection; gesture recognition (undo double-tap mobile),Input buffering for smooth trails; input prediction
-TECHNICAL,Shader system,Custom ShaderLab/HLSL for line glow + energy flow,Quality tiers: High (PC); Medium (mid-range mobile); Low (budget devices)
-TECHNICAL,VFX,Particle pooling for burst effects; pre-baked for performance,Combo sparkles; level complete confetti; source pulse
-TECHNICAL,Audio,AudioManager; playlist system; crossfade transitions,WWise or FMOD optional; Unity Audio built-in sufficient for MVP
-TECHNICAL,Save/Load,Player progress: current world; stars per level; settings (volume; language; accessibility),LocalStorage (mobile); PlayerPrefs (desktop); Cloud optional
-TECHNICAL,Analytics,Segment.io / Firebase; track: level_start; level_complete; level_fail; powerup_use; ad_watched; retention D1/D7,Event logging for KPI monitoring
-TECHNICAL,Network (optional),Leaderboard: REST API to backend; daily challenge content push; minimal bandwidth,Can use Play Services / Game Center / custom backend
-TECHNICAL,Performance targets,60 FPS on mid-range (iPhone 8; Galaxy S9+); memory < 200MB; load time < 3s,Profile on device; optimize draw calls; shader variants
-=== TESTING & QUALITY ASSURANCE (KIỂM TRA CHẤT LƯỢNG) ===,,,
-QA,Unit tests,Pathfinding logic; scoring formula; grid connectivity; level parser,Run on every commit; CI/CD automation recommended
-QA,Integration tests,Input flows; UI navigation; save/load; analytics events,Manual + automated Selenium/Appium for mobile
-QA,Device testing matrix,"Low-end: iPhone 6S; Galaxy A50 | Mid-range: iPhone 8; Galaxy S9+ | High-end: iPhone 13; Galaxy S21",Test performance; memory; thermal; battery drain
-QA,Orientation testing,Portrait & landscape; responsive UI on both,Especially important for mobile
-QA,Localization QA,Vietnamese; English; Spanish; check UI overflow; RTL if applicable,Crowdsourced or professional translation review
-QA,Accessibility testing,Colorblind simulator; screen reader (iOS VoiceOver; Android TalkBack); keyboard-only navigation,Involves accessibility consultant or community
-QA,Playtesting,Internal rounds: weeks 4; 6; 8; external beta (friends; influencers) weeks 9-10,Validate solvability; difficulty curve; retention hooks
-QA,Performance profiling,Unity Profiler; measure: CPU/GPU/memory per scene; optimize hot paths,Target: 60 FPS sustained; thermal throttle < 5%
-QA,Bug tracking,GitHub Issues or Jira; severity levels (critical; high; medium; low),Zero critical/high blockers before launch
-=== TIMELINE & ROADMAP (LỘ TRÌNH) ===,,,
-TIMELINE,Pre-production (Tuần 1-2),GDD finalized; visual style guide; level schema design; concept art,Deliverable: GDD; style guide; schema approval
-TIMELINE,Production core (Tuần 3-6),"Project setup; grid system; input system; 5 prototype shaders; 30 level design; gameplay loop (playable; not polished)","Milestone: playable prototype; can run first 30 levels"
-TIMELINE,Production polish (Tuần 7-8),"Audio implementation; tutorial flow; UI/UX implementation; visual effects; optimization pass","Milestone: alpha-quality build; all features present"
-TIMELINE,Beta & QA (Tuần 9-10),"Device testing; bug fixes; playtesting feedback; final optimizations; analytics integration","Milestone: beta-ready; <5 known critical issues"
-TIMELINE,Soft launch / Post (Tuần 11+),"IAP integration; leaderboard backend; daily challenge setup; social share; ad networks","Milestone: soft launch; monitor KPIs; final adjustments"
-ROADMAP_POST,Post-launch wave 1 (Month 2-3),Level editor; user-generated content moderation; seasonal content W1,New 20 levels; user editor beta
-ROADMAP_POST,Post-launch wave 2 (Month 4-5),PVP challenges; leaderboard seasons; cosmetic themes pack 2,Competitive gameplay; more monetization
-ROADMAP_POST,Post-launch wave 3 (Month 6+),Mobile VR/AR (optional); soundtrack album; merchandise,Community building; brand expansion
-=== RISKS & MITIGATIONS (RỦI RO & GIẢI PHÁP) ===,,,
-RISK,Shader lag on low-end devices,Performance < 30 FPS on budget Android phones,Fallback shaders (simple flat colors); quality settings menu; defer particles
-RISK,Level solvability bugs,Player stuck due to unsolvable layout,Automated solvability validator; unit tests for pathfinding; designer review before publish
-RISK,High churn from paywall,Players quit if too many $ gatekeeping,F2P core fully playable; IAP cosmetic/convenience only; no pay-to-win
-RISK,Ad spam backlash,User frustration; 1-star reviews,Frequency cap (max 3 per session); always user-initiated; generous rewarded ad rewards
-RISK,Server/leaderboard issues,Leaderboard down; daily challenges fail to sync,Graceful fallback (local leaderboard); offline mode support; redundant server
-RISK,Unbalanced difficulty,Early levels too hard or too easy,Playtesting metrics (50% should complete L1 in first session); adjust if <35%
-RISK,Memory leak,Game crashes after extended play,Profiling every sprint; object pooling validation; dispose Coroutines properly
-=== SUCCESS METRICS & KPIs (CHỈ TIÊU THÀNH CÔNG) ===,,,
-KPI,Retention D1,>= 35%,% người chơi quay lại ngày thứ hai,Engagement indicator; benchmark for casual games
-KPI,Retention D7,>= 15%,% người chơi quay lại sau 7 ngày,Long-term engagement; retention curve health
-KPI,Level 1 completion,>= 50%,% người chơi hoàn thành màn đầu tiên trong session đầu,Onboarding effectiveness; UX quality
-KPI,Avg session length,>= 8 minutes,Trung bình phút chơi / session,Engagement depth; replayability health
-KPI,Performance - FPS,60 FPS sustained,Đo trên mid-range mobile; < 5% throttle,User experience quality; retention correlation
-KPI,Performance - memory,< 200 MB,RAM usage peak; mobile stability,Crash prevention; device compatibility
-KPI,ARPU,Tùy thị trường,Doanh thu trung bình trên người dùng,Business KPI; post-launch target >$0.50
-KPI,Ad frequency,1-3 per session,Quảng cáo / session trung bình,Balance monetization vs. UX; <1% skip-rate target
-KPI,Leaderboard engagement,>= 20%,% người chơi xem/submit leaderboard,Social engagement; competitive motivation
-KPI,Power-up usage,>= 30%,% người chơi sử dụng power-up (rewarded or purchased),Monetization health; difficulty balance validation
-=== GLOSSARY / THUẬT NGỮ (TIẾNG VIỆT - ANH) ===,,,
-GLOSSARY,Dot / Điểm,A node/point on the grid,Một nút trên lưới game
-GLOSSARY,Link / Đường nối,Connection between two adjacent dots,Kết nối giữa hai điểm liền kề
-GLOSSARY,Source / Nguồn,Starting point for energy flow,Điểm bắt đầu luồng năng lượng
-GLOSSARY,Sink / Đích,Destination point for energy flow,Điểm kết thúc luồng năng lượng
-GLOSSARY,Blocker / Cản đường,Impassable cell on the grid,Ô không thể vượt qua
-GLOSSARY,Junction / Nút giao,Dot allowing >2 connections,Điểm cho phép kết nối >2
-GLOSSARY,Bridge / Cầu,Power-up allowing intersection crossing,Power-up cho phép cắt qua giao điểm
-GLOSSARY,Combo,Consecutive successful actions chaining points,Hành động liên tiếp thành công
-GLOSSARY,Power-up / Vật phẩm,Special item providing temporary advantage,Vật phẩm đặc biệt cung cấp lợi thế
-GLOSSARY,Scoring,Points based on performance metrics,Tính điểm dựa trên hiệu suất
-GLOSSARY,Star system,1-3 stars for level performance tiers,Hệ thống sao theo hiệu suất
-GLOSSARY,World / World / Thế giới,Collection of 20-50 levels; a chapter,Bộ sưu tập 20-50 cấp độ; một chương
-GLOSSARY,Palette / Bảng màu,Set of colors for visual theme,Bộ màu cho chủ đề trực quan
-GLOSSARY,Shader,Graphical rendering program,Chương trình làm mềm render đồ họa
-GLOSSARY,Glow effect,Visual highlight around elements,Hiệu ứng sáng quanh các phần tử
-GLOSSARY,Energy flow,Visual representation of energy traveling,Biểu diễn năng lượng chảy
-GLOSSARY,IAP / Mua trong ứng dụng,In-App Purchase; monetization mechanism,Cơ chế kiếm tiền qua mua hàng
-GLOSSARY,Leaderboard,Ranking of top players by score,Bảng xếp hạng theo điểm
-GLOSSARY,Daily challenge,Special limited-time puzzle each day,Trò chơi giải đố hạn chế hàng ngày
-GLOSSARY,Replayability,Measure of player desire to replay levels,Mức độ muốn chơi lại các màn
-GLOSSARY,Progression,System for unlocking content gradually,Hệ thống mở khóa nội dung dần dần
-GLOSSARY,Tutorial,Guided onboarding teaching game mechanics,Hướng dẫn dạy cơ chế game
-GLOSSARY,Accessibility,Features for players with disabilities,Tính năng hỗ trợ cho người khuyết tật
-GLOSSARY,Localization,Translating game to multiple languages,Dịch game sang nhiều ngôn ngữ
-GLOSSARY,Analytics,Data collection for user behavior tracking,Thu thập dữ liệu theo dõi hành vi người dùng
-GLOSSARY,KPI,Key Performance Indicator; measurable success metric,Chỉ tiêu hiệu suất chính
-=== END GDD DOTSLINK ===,,,
+CATEGORY,DETAIL,DESCRIPTION
+=== THÔNG TIN CƠ BẢN ===,,
+Tên trò chơi,DotsLink,Kết nối các điểm để dẫn năng lượng
+Thể loại,Puzzle / Casual / Connect-the-dots,Game giải đố kết nối
+Nền tảng,PC (Windows); Mobile (iOS; Android),Hỗ trợ đa nền tảng
+Engine,Unity (C#); Shaders: ShaderLab/HLSL,Công nghệ phát triển
+Tầm nhìn chính,Vẽ đường nối giữa các điểm để dẫn năng lượng/hoàn thành mục tiêu mỗi màn. Đồ họa neon/flow shader.,Ý tưởng cốt lõi
+Đối tượng mục tiêu,Tuổi 8+; Người chơi thích puzzle; casual; short sessions,Người chơi tiềm năng
+Phong cách nghệ thuật,Minimal + neon glow; nền tối để làm nổi các đường,Thẩm mỹ trò chơi
+Cách kiếm tiền,F2P + IAP (cosmetics; remove ads) + rewarded ads (power-up),Mô hình kinh doanh
+=== CORE LOOP (VÒ NƠI CỐT LÕI) ===,,
+Bước 1,Quan sát bảng,Người chơi xem lưới điểm và mục tiêu của màn
+Bước 2,Lập kế hoạch,Xác định các điểm cần nối / nguồn và đích
+Bước 3,Vẽ đường nối,Vẽ đường nối bằng chuột/touch theo luật game
+Bước 4,Kích hoạt hiệu ứng,Năng lượng/hiệu ứng chạy; kiểm tra điều kiện hoàn thành
+Bước 5,Nhận phần thưởng,Nhận điểm; sao; unlock level hoặc power-up
+Bước 6,Lặp lại,Chọn màn tiếp theo hoặc thử lại/tối ưu
+=== CORE GAMEPLAY (TRÒ CHƠI CỐT LÕI) ===,,
+Mục tiêu chiến lược,Kết nối các dot cùng màu,Người chơi phải nối các điểm theo luật; dẫn năng lượng từ source tới sink
+Luật cơ bản,Đường nối chỉ giữa dot liền kề (adjacency),Không thể nối dot ở xa; phải theo lưới
+Luật tiêu chí,Đường thường giữa cùng màu; không cắt nhau (trừ bridge),Một số mode cho phép khác màu; bridge dùng power-up
+Tài nguyên chính,Moves (nước đi) hoặc Time (thời gian),Mỗi vẽ đường = 1 move hoặc tiêu thụ thời gian
+Phần thưởng,Điểm; sao (1-3); unlock level hoặc power-up,Hoàn thành sớm/ít nước → nhiều sao
+Thất bại,Hết nước/thời gian mà chưa hoàn thành mục tiêu,Offer: thử lại; xem quảng cáo; mua power-up
+Combo system,Nối liên tiếp nhiều đường = combo; mỗi combo +0.1x điểm,Combo 3 → x1.3; combo 10 → x2.0
+=== GAME MECHANIC (CƠ CHẾ CHI TIẾT) ===,,
+Dot (Điểm),Nút trên lưới có màu/loại: source; sink; neutral; blocker,Một số dot cho phép junction hoặc tái sử dụng
+Link (Đường nối),Cạnh giữa hai dot liền kề,Chỉ nối theo adjacency; thường giữa cùng màu; không cắt nhau (trừ bridge)
+Energy (Năng lượng),Luồng chảy theo đường nối hoàn chỉnh,Chạy từ Source→Sink; hiệu ứng shader energy pulse
+Source (Điểm nguồn),Điểm bắt đầu năng lượng,Thường màu riêng; có thể có nhiều source
+Sink (Điểm đích),Điểm kết thúc năng lượng,Thường match color với source; có thể có nhiều sink
+Neutral (Điểm trung lập),Điểm không cần dẫn năng lượng qua,Có thể visit để tăng score hoặc hoàn thành mục tiêu
+Blocker (Cản đường),Ô không thể đi qua; tạo chướng ngại,Dùng để tăng độ khó; bắt buộc tìm đường vòng
+Junction,Dot cho phép >2 kết nối (thay vì 2),Giới thiệu cơ chế nhánh; power-up có thể unlock
+Bridge (Cầu),Power-up cho phép cắt qua intersections,Sử dụng hạn chế (consumable); hoặc ứng dụng IAP
+Power-up,Vật phẩm hỗ trợ: Erase; Bridge; SwapColors; TimeSlow,Có thể mua / nhận thưởng; cosmetic themes
+Scoring (Tính điểm),baseScore + timeBonus + moveBonus * comboMultiplier,3 sao: >= 80% max score; 2 sao: >= 50%; 1 sao: >= 20%
+Undo (Hoàn tác),Gỡ bỏ đường cuối cùng; limited per level,Desktop: right-click; Mobile: tap undo icon
+Restart (Khởi động lại),Bắt đầu lại màn hiện tại từ đầu,Desktop: Space; Mobile: double-tap
+=== LEVEL DESIGN (THIẾT KẾ MÀN) ===,,
+Cấu trúc,Chia thành Worlds (chương); mỗi world: 20-50 màn,Hệ thống unlock: vượt 3 sao unlock world tiếp theo
+Difficulty curve,Giới thiệu cơ chế cơ bản → kết hợp nhiều cơ chế → tối ưu/precision levels,Mỗi 5 màn một boss-challenge (cơ chế mới)
+Tutorial design,Hướng dẫn từng bước bằng overlay; bắt buộc hành động,Giới thiệu: dot; link; source; sink; blocker; combo
+Progression gates,Vượt X% sao tổng → unlock world tiếp theo,Ví dụ: 50% sao world 1 → unlock world 2
+Level variety,Các mode khác nhau: connect all; flow mode; energy mode; score mode,Flow mode: điền mọi ô lưới; Energy mode: dẫn nguồn tới sink
+Boss levels,Mỗi 5 màn một thách thức kỹ năng cao,Yêu cầu combine nhiều cơ chế; limited moves
+Daily challenge,Level đặc biệt mỗi ngày; server-side content,Cho cơ hội thêm rewards; encourage daily return
+Schema dữ liệu,id; world; gridWidth; gridHeight; dots[]; blockers[]; objectives; moveLimit; timeLimit; starCriteria; palette; shaderParams; solvable; author; notes,Lưu trong ScriptableObjects hoặc JSON
+Validation,Kiểm tra tự động khả năng giải quyết (solvability check); graph connectivity,Unit tests cho pathfinding; prevent unbeatable levels
+=== GAME ELEMENTS (YẾU TỐ TRỰC QUAN) ===,,
+Dot visuals,Hình tròn neon với màu riêng; glow shader,Size: 32x32px (mobile) hoặc 48x48px (desktop)
+Link visuals,Đường nối neon từ dot này sang dot khác; glow effect,Width: 4-8px; animated when drawing; energy pulse when active
+Energy pulse,Hiệu ứng shader: mẫu sáng chạy dọc đường,Speed tunable; color theo source color
+Combo indicator,Text hiển thị số combo; tăng dần khi liên tiếp,Kích thước text tăng; animation scale-up
+Score display,Hiển thị tổng điểm hiện tại; update real-time,Bottom-right HUD; animates on change
+Move counter,Hiển thị remaining moves / time,Top-left HUD; color warning khi dưới 3 moves
+Star display,Hiển thị 1-3 sao đã đạt / còn có thể đạt,Dynamic: grayed-out nếu chưa đạt; gold khi đạt
+Power-up icons,Hiển thị available power-ups; greyed nếu used/unavailable,Clickable; drag-and-drop để áp dụng (tùy design)
+Particle effects,Burst particles khi hoàn thành combo hoặc level,Color-matched với theme; pool-based optimization
+Animations,Draw animation: trail shader khi vẽ; smooth ease,Fade-out khi undo; bounce khi combo
+Sound effects,Vẽ đường: bip; năng lượng chạy: whoosh; combo: chime; level complete: fanfare,Adjustable volume; can turn off
+Haptics (mobile),Rung khi hoàn thành combo; khi chạm lỗi,Intensity adjustable; can disable
+=== USER INTERFACE (GIAO DIỆN) ===,,
+Main Menu,Play; Settings; Shop; Leaderboard; Daily Challenge,Show total stars; seasonal offers; ads optional
+Level Map,World overview; level icons; locked/unlocked status,Click to select level; show best score/stars
+In-Game HUD,Lưới trung tâm; toolbar (undo; restart; power-ups); info bar,Objective; remaining moves/time; current score; combo
+Pause Menu,Resume; Restart; Settings; Return to Menu,Bảo tồn trạng thái khi resume
+Level Complete,Score breakdown; stars earned; rewards; next level / replay buttons,Show combo bonus; time bonus; move bonus calculation
+Fail Screen,Show hint; Retry button; Watch ad button (for continue); Buy power-up button,Respect ad frequency (max 1-3 per session)
+Tutorial,Step-by-step overlays; highlight target; require action; allow skip,Re-openable from settings menu
+Settings,Audio (music/SFX toggle); Controls (sensitivity); Accessibility (colorblind mode; font size; vibration),Persist cross-session; cloud save recommended
+Shop,Cosmetic themes; power-up packs; remove ads; seasonal bundles,Show prices; apply IAP confirmations; receipt tracking
+=== LEVEL PROGRESSION (CẤP ĐỘ & TIẾN ĐỘ) ===,,
+World 1 Structure,20 levels: 4 tutorials + 16 main (1 boss at L5; 1 boss at L10; 1 boss at L15; 1 boss at L20),Introduce: dot; link; source; sink; scoring
+World 2 Structure,20 levels: introduce time-based mode; blockers increase,Boss levels test multi-source scenarios
+World 3 Structure,20 levels: introduce junction mechanic; complex layouts,Boss levels: precision + speed challenges
+Unlock system,Vượt >= 50% sao world N → unlock world N+1; hoặc vượt score threshold,Prevent soft-lock; always have playable path forward
+Soft caps,Leaderboard; season-based rankings; cosmetics as incentive past 100%,Endless/arcade mode available post-game
+Daily reset,Daily challenge resets at UTC 00:00 or configurable,Can store 1-3 unclaimed daily rewards
+Season pass,Optional cosmetic/power-up seasonal pass (tương lai),Not required for core gameplay; cosmetic only
+=== CONTENT & MONETIZATION (NỘI DUNG & KIẾM TIỀN) ===,,
+Free-to-play core,Hoàn toàn playable mà không trả tiền,All levels unlock progressively; 3-star system not blocked by paywall
+IAP Options,Cosmetic themes; power-up packs (3-pack; 10-pack; bundle); remove ads; season pass,Prices: $0.99 - $9.99; tiered to match market
+Rewarded ads,Optional video ads offer: extra power-up; or continue after fail; or daily bonus,Frequency: max 1-3 per session; user-initiated
+Ad placement,Banner ads (optional; can remove via IAP); rewarded only on user tap,Respect users who pay; no intrusive popups
+Leaderboard cosmetics,Exclusive theme for top 100 players; seasonal reset,Encourage engagement; cosmetic-only advantage
+Seasonal events,Limited-time level packs; special cosmetics; themed content,4-week seasons; post-launch feature
+=== AUDIOVISUAL (ÂM THANH & HÌNH ẢNH) ===,,
+Music,Ambient electronic; tracks per world (upbeat for W1; relaxed for W2; intense for W3),Loops seamlessly; crossfade on world change
+SFX - Draw,Subtle bip when dot connects,Non-intrusive; volume adjustable
+SFX - Energy,Whoosh as energy pulses; pitch varies by link length,Emphasizes flow; satisfying
+SFX - Combo,Chime at +1 combo; escalating pitch at higher combos,Celebration feedback; encourages player
+SFX - Complete,Fanfare/ding when level complete; different tone per star count,Positive reinforcement; emotional reward
+SFX - Fail,Sad trombone / buzz; soft so not frustrating,Acknowledge failure; prompt retry
+Visual theme - W1,Neon red/blue/green lines; dark navy background; glow shader,Youthful; energetic; welcoming
+Visual theme - W2,Neon purple/cyan; gradient background; flow trails,Mid-game aesthetic; maintains engagement
+Visual theme - W3,Neon gold/white; particle-heavy; ultra-premium feel,Climax theme; reward player for progression
+Accessibility - Colorblind,Add symbols (circle; square; triangle; cross) alongside colors,Supports Deuteranopia; Protanopia; Tritanopia modes
+Accessibility - Font,Default 14pt; adjustable to 12pt-18pt,Affects HUD text; UI labels; menu items
+Accessibility - Sound,Toggle: all; music only; SFX only; vibration only,Respect deaf/hard-of-hearing players
+=== TECHNICAL ARCHITECTURE (KIẾN TRÚC KỸ THUẬT) ===,,
+Engine,Unity 2022 LTS or later; C# scripting,Cross-platform build (Windows; iOS; Android; WebGL)
+Project structure,Assets/Scripts (Core; UI; Managers); Assets/Art (Sprites; Shaders; Particles); Assets/Levels (JSON or ScriptableObjects); Assets/Audio,Modular for easy scaling
+GameManager,Singleton; manages game state; level load/unload; progression tracking,Persist across scenes; save/load via PlayerPrefs or cloud
+LevelManager,Load level data; instantiate grid; manage objectives; detect completion,Parse JSON or ScriptableObject; handle all level logic
+Grid system,2D array of cells; adjacency lookup; pathfinding validation,O(1) neighbor query; BFS/DFS for cycle detection
+Input system,Touch & mouse support; drag detection; gesture recognition (undo double-tap mobile),Input buffering for smooth trails; input prediction
+Shader system,Custom ShaderLab/HLSL for line glow + energy flow,Quality tiers: High (PC); Medium (mid-range mobile); Low (budget devices)
+VFX,Particle pooling for burst effects; pre-baked for performance,Combo sparkles; level complete confetti; source pulse
+Audio,AudioManager; playlist system; crossfade transitions,WWise or FMOD optional; Unity Audio built-in sufficient for MVP
+Save/Load,Player progress: current world; stars per level; settings (volume; language; accessibility),LocalStorage (mobile); PlayerPrefs (desktop); Cloud optional
+Analytics,Segment.io / Firebase; track: level_start; level_complete; level_fail; powerup_use; ad_watched; retention D1/D7,Event logging for KPI monitoring
+Network (optional),Leaderboard: REST API to backend; daily challenge content push; minimal bandwidth,Can use Play Services / Game Center / custom backend
+Performance targets,60 FPS on mid-range (iPhone 8; Galaxy S9+); memory < 200MB; load time < 3s,Profile on device; optimize draw calls; shader variants
+=== TESTING & QUALITY ASSURANCE (KIỂM TRA CHẤT LƯỢNG) ===,,
+Unit tests,Pathfinding logic; scoring formula; grid connectivity; level parser,Run on every commit; CI/CD automation recommended
+Integration tests,Input flows; UI navigation; save/load; analytics events,Manual + automated Selenium/Appium for mobile
+Device testing matrix,"Low-end: iPhone 6S; Galaxy A50 | Mid-range: iPhone 8; Galaxy S9+ | High-end: iPhone 13; Galaxy S21",Test performance; memory; thermal; battery drain
+Orientation testing,Portrait & landscape; responsive UI on both,Especially important for mobile
+Localization QA,Vietnamese; English; Spanish; check UI overflow; RTL if applicable,Crowdsourced or professional translation review
+Accessibility testing,Colorblind simulator; screen reader (iOS VoiceOver; Android TalkBack); keyboard-only navigation,Involves accessibility consultant or community
+Playtesting,Internal rounds: weeks 4; 6; 8; external beta (friends; influencers) weeks 9-10,Validate solvability; difficulty curve; retention hooks
+Performance profiling,Unity Profiler; measure: CPU/GPU/memory per scene; optimize hot paths,Target: 60 FPS sustained; thermal throttle < 5%
+Bug tracking,GitHub Issues or Jira; severity levels (critical; high; medium; low),Zero critical/high blockers before launch
+=== TIMELINE & ROADMAP (LỘ TRÌNH) ===,,
+Pre-production (Tuần 1-2),GDD finalized; visual style guide; level schema design; concept art,Deliverable: GDD; style guide; schema approval
+Production core (Tuần 3-6),"Project setup; grid system; input system; 5 prototype shaders; 30 level design; gameplay loop (playable; not polished)","Milestone: playable prototype; can run first 30 levels"
+Production polish (Tuần 7-8),"Audio implementation; tutorial flow; UI/UX implementation; visual effects; optimization pass","Milestone: alpha-quality build; all features present"
+Beta & QA (Tuần 9-10),"Device testing; bug fixes; playtesting feedback; final optimizations; analytics integration","Milestone: beta-ready; <5 known critical issues"
+Soft launch / Post (Tuần 11+),"IAP integration; leaderboard backend; daily challenge setup; social share; ad networks","Milestone: soft launch; monitor KPIs; final adjustments"
+Post-launch wave 1 (Month 2-3),Level editor; user-generated content moderation; seasonal content W1,New 20 levels; user editor beta
+Post-launch wave 2 (Month 4-5),PVP challenges; leaderboard seasons; cosmetic themes pack 2,Competitive gameplay; more monetization
+Post-launch wave 3 (Month 6+),Mobile VR/AR (optional); soundtrack album; merchandise,Community building; brand expansion
+=== RISKS & MITIGATIONS (RỦI RO & GIẢI PHÁP) ===,,
+Shader lag on low-end devices,Performance < 30 FPS on budget Android phones,Fallback shaders (simple flat colors); quality settings menu; defer particles
+Level solvability bugs,Player stuck due to unsolvable layout,Automated solvability validator; unit tests for pathfinding; designer review before publish
+High churn from paywall,Players quit if too many $ gatekeeping,F2P core fully playable; IAP cosmetic/convenience only; no pay-to-win
+Ad spam backlash,User frustration; 1-star reviews,Frequency cap (max 3 per session); always user-initiated; generous rewarded ad rewards
+Server/leaderboard issues,Leaderboard down; daily challenges fail to sync,Graceful fallback (local leaderboard); offline mode support; redundant server
+Unbalanced difficulty,Early levels too hard or too easy,Playtesting metrics (50% should complete L1 in first session); adjust if <35%
+Memory leak,Game crashes after extended play,Profiling every sprint; object pooling validation; dispose Coroutines properly
+=== SUCCESS METRICS & KPIs (CHỈ TIÊU THÀNH CÔNG) ===,,
+Retention D1,>= 35%,% người chơi quay lại ngày thứ hai; Engagement indicator; benchmark for casual games
+Retention D7,>= 15%,% người chơi quay lại sau 7 ngày; Long-term engagement; retention curve health
+Level 1 completion,>= 50%,% người chơi hoàn thành màn đầu tiên trong session đầu; Onboarding effectiveness; UX quality
+Avg session length,>= 8 minutes,Trung bình phút chơi / session; Engagement depth; replayability health
+Performance - FPS,60 FPS sustained,Đo trên mid-range mobile; < 5% throttle; User experience quality; retention correlation
+Performance - memory,< 200 MB,RAM usage peak; mobile stability; Crash prevention; device compatibility
+ARPU,Tùy thị trường,Doanh thu trung bình trên người dùng; Business KPI; post-launch target >$0.50
+Ad frequency,1-3 per session,Quảng cáo / session trung bình; Balance monetization vs. UX; <1% skip-rate target
+Leaderboard engagement,>= 20%,% người chơi xem/submit leaderboard; Social engagement; competitive motivation
+Power-up usage,>= 30%,% người chơi sử dụng power-up (rewarded or purchased); Monetization health; difficulty balance validation
+=== GLOSSARY / THUẬT NGỮ ===,,
+Dot / Điểm,A node/point on the grid,Một nút trên lưới game
+Link / Đường nối,Connection between two adjacent dots,Kết nối giữa hai điểm liền kề
+Source / Nguồn,Starting point for energy flow,Điểm bắt đầu luồng năng lượng
+Sink / Đích,Destination point for energy flow,Điểm kết thúc luồng năng lượng
+Blocker / Cản đường,Impassable cell on the grid,Ô không thể vượt qua
+Junction / Nút giao,Dot allowing >2 connections,Điểm cho phép kết nối >2
+Bridge / Cầu,Power-up allowing intersection crossing,Power-up cho phép cắt qua giao điểm
+Combo,Consecutive successful actions chaining points,Hành động liên tiếp thành công
+Power-up / Vật phẩm,Special item providing temporary advantage,Vật phẩm đặc biệt cung cấp lợi thế
+Scoring,Points based on performance metrics,Tính điểm dựa trên hiệu suất
+Star system,1-3 stars for level performance tiers,Hệ thống sao theo hiệu suất
+World / Thế giới,Collection of 20-50 levels; a chapter,Bộ sưu tập 20-50 cấp độ; một chương
+Palette / Bảng màu,Set of colors for visual theme,Bộ màu cho chủ đề trực quan
+Shader,Graphical rendering program,Chương trình làm mềm render đồ họa
+Glow effect,Visual highlight around elements,Hiệu ứng sáng quanh các phần tử
+Energy flow,Visual representation of energy traveling,Biểu diễn năng lượng chảy
+IAP / Mua trong ứng dụng,In-App Purchase; monetization mechanism,Cơ chế kiếm tiền qua mua hàng
+Leaderboard,Ranking of top players by score,Bảng xếp hạng theo điểm
+Daily challenge,Special limited-time puzzle each day,Trò chơi giải đố hạn chế hàng ngày
+Replayability,Measure of player desire to replay levels,Mức độ muốn chơi lại các màn
+Progression,System for unlocking content gradually,Hệ thống mở khóa nội dung dần dần
+Tutorial,Guided onboarding teaching game mechanics,Hướng dẫn dạy cơ chế game
+Accessibility,Features for players with disabilities,Tính năng hỗ trợ cho người khuyết tật
+Localization,Translating game to multiple languages,Dịch game sang nhiều ngôn ngữ
+Analytics,Data collection for user behavior tracking,Thu thập dữ liệu theo dõi hành vi người dùng
+KPI,Key Performance Indicator; measurable success metric,Chỉ tiêu hiệu suất chính
+=== END GDD DOTSLINK ===,,
