@@ -1,0 +1,109 @@
+PHẦN,NỘI DUNG,MÔ TẢ CHI TIẾT
+Overview,Tên Game,DotsLink
+Overview,Thể loại,Puzzle / Brain Game
+Overview,Nền tảng,Unity (C#)
+Overview,Mô tả tổng quát,"DotsLink là một trò chơi logic dạng puzzle trong đó người chơi phải kết nối các điểm (dots) có cùng màu sắc bằng các đường nối (edges). Mục tiêu là tạo ra các đường dẫn hoàn chỉnh kết nối tất cả các cặp điểm cùng màu trên bàn cờ mà không gây ra vòng lặp (loops) không hợp lệ."
+Overview,Cơ chế chơi chính,"Kết nối các điểm - người chơi click chuột từ một điểm này sang điểm khác để tạo cạnh (edge) giữa chúng, tạo thành các đường dẫn"
+Overview,Độ khó tăng dần,"Độ phức tạp tăng theo cấp độ: kích thước bàn cờ bắt đầu từ 3x3 và tăng thêm (CurrentStage + 3), số lượng màu và điểm tăng"
+Overview,Đối tượng người chơi,"Người chơi thích puzzle logic, brain games, những ai yêu thích Dots and Boxes, Flow Free, Connect hoặc các trò chơi logic tương tự"
+Game Element,ID,001
+Game Element,Tên,Điểm (Point/Dot)
+Game Element,Mô tả,"Các nút tròn nhỏ trên bàn cờ, mỗi điểm có một màu sắc định trước"
+Game Element,Chức năng chính,"Là điểm cuối/điểm đầu của mỗi đường dẫn. Mỗi cặp điểm cùng màu phải được kết nối lại với nhau"
+Game Element,Note,"Điểm được biểu diễn bằng GameObject _point, có thể bật/tắt, được tô màu dựa trên colorId"
+Game Element,IMG,Assets/Project/Art/Dots hoặc sprite tương ứng
+Game Element,ID,002
+Game Element,Tên,Cạnh (Edge)
+Game Element,Mô tả,"Các đường nối giữa các điểm, có 4 hướng: trên, dưới, trái, phải"
+Game Element,Chức năng chính,"Tạo đường dẫn kết nối các điểm cùng màu. Mỗi điểm trung gian có thể có tối đa 2 cạnh kết nối"
+Game Element,Note,"Có 4 loại Edge: _topEdge, _bottomEdge, _leftEdge, _rightEdge. Được lưu trữ trong Dictionary<Node, GameObject> ConnectedEdges"
+Game Element,IMG,Assets/Project/Art/Edges hoặc sprite tương ứng
+Game Element,ID,003
+Game Element,Tên,Bàn cờ (Board/Grid)
+Game Element,Mô tả,"Lưới ô vuông chứa tất cả các điểm và cạnh, kích thước thay đổi theo cấp độ"
+Game Element,Chức năng chính,"Tạo không gian chơi, đặt các điểm và cạnh trên bàn cờ"
+Game Element,Note,"Kích thước = CurrentStage + 3 (bắt đầu từ 3x3 khi Stage = 0). Bàn cờ tạo bằng Instantiate _boardPrefab"
+Game Element,IMG,Assets/Project/Art/Board hoặc background grid
+Game Element,ID,004
+Game Element,Tên,Ô nền (Background Cell)
+Game Element,Mô tả,"Các ô vuông nhỏ tạo thành nền lưới của bàn cờ"
+Game Element,Chức năng chính,"Tạo hình ảnh lưới cho bàn cờ, giúp người chơi dễ hình dung vị trí"
+Game Element,Note,"Được tạo thông qua _bgCellPrefab, tương ứng với mỗi vị trí trên grid"
+Game Element,IMG,Assets/Project/Art/BackgroundCell hoặc texture tương ứng
+Game Element,ID,005
+Game Element,Tên,Điểm nhấn/Highlight
+Game Element,Mô tả,"Hiệu ứng hiển thị khi người chơi đang kéo chuột từ một điểm"
+Game Element,Chức năng chính,"Giúp người chơi theo dõi động tác kéo chuột của mình, hiển thị đường dẫn đang được tạo"
+Game Element,Note,"_clickHighlight là SpriteRenderer, theo dõi vị trí chuột trong quá trình kéo"
+Game Element,IMG,Assets/Project/Art/ClickHighlight hoặc indicator
+Game Element,ID,006
+Game Element,Tên,Giải pháp Highlight (Solve Highlight)
+Game Element,Mô tả,"Hiệu ứng hiển thị các đường dẫn đã hoàn thành đúng"
+Game Element,Chức năng chính,"Hiển thị khi kiểm tra điều kiện thắng, giúp người chơi thấy rõ các đường dẫn hoàn chỉnh"
+Game Element,Note,"_highLight trên mỗi Node, có độ trong suốt 40% (alpha = 0.4f)"
+Game Element,IMG,Assets/Project/Art/SolveHighlight hoặc glow effect
+Điều kiện thắng thua,Điều kiện thắng,"Tất cả các điểm trên bàn cờ phải được kết nối thành các đường dẫn hoàn chỉnh cùng màu mà không tạo vòng lặp không hợp lệ. Cụ thể:
+- Mỗi điểm cuối (endpoint) phải kết nối với chính xác 1 cạnh (ConnectedNodes.Count == 1 và IsEndNode == true)
+- Mỗi điểm trung gian phải kết nối với chính xác 2 cạnh (ConnectedNodes.Count == 2 và IsEndNode == false)
+- Tất cả các điểm phải thuộc về một đường dẫn hoàn chỉnh từ điểm cuối này sang điểm cuối kia cùng màu"
+Điều kiện thắng thua,Điều kiện thua,"Không có điều kiện thua rõ ràng - trò chơi cho phép người chơi thử lại liên tục. Người chơi có thể:
+- Nhấn Restart để làm lại từ đầu
+- Nhấn Back để quay lại menu chính
+- Tiếp tục thử cho đến khi giải quyết được"
+Điều kiện thắng thua,Cơ chế kiểm tra thắng,"CheckWin() duyệt qua tất cả các Node, gọi SolveHighlight() trên từng node, sau đó kiểm tra IsWin property của mỗi node để đảm bảo tất cả đều thỏa mãn điều kiện"
+Game Rule,Quy tắc cơ bản 1,"Người chơi chỉ có thể kết nối các điểm có cùng màu sắc. Nếu cố gắng kết nối hai điểm khác màu, đường nối sẽ bị hủy (xem kiểm tra: colorId != connectedNode.colorId)"
+Game Rule,Quy tắc cơ bản 2,"Mỗi điểm cuối (endpoint - điểm có _point.activeSelf) chỉ có thể kết nối với 1 cạnh duy nhất. Nếu cố kết nối thêm cạnh thứ 2, cạnh cũ nhất sẽ bị xóa"
+Game Rule,Quy tắc cơ bản 3,"Mỗi điểm trung gian chỉ có thể kết nối với 2 cạnh. Nếu cố kết nối cạnh thứ 3, cạnh không kết nối với endpoint sẽ bị xóa"
+Game Rule,Quy tắc cơ bản 4,"Không được tạo ra vòng lặp (loops) - các đường dẫn phải là những đoạn thẳng từ endpoint này sang endpoint khác, không khoá trong một vòng"
+Game Rule,Quy tắc cơ bản 5,"Nếu tạo một đường dẫn mà có điểm trung gian bậc 3 (degree 3 - kết nối 3 điểm lân cận liên tiếp), điểm đó sẽ bị xóa để tránh vòng lặp"
+Game Rule,Quy tắc cơ bản 6,"Khi xóa một cạnh, nếu điểm kết nối không còn liên kết với bất kỳ endpoint nào, toàn bộ đường dẫn từ điểm đó sẽ bị xóa"
+Game Rule,Quy tắc cơ bản 7,"Người chơi sử dụng chuột: nhấn và kéo từ một điểm đến điểm khác. Nhả chuột sẽ kết thúc thao tác kết nối"
+Game Rule,Quy tắc cơ bản 8,"Nếu người chơi kết nối lại hai điểm đã được kết nối trước đó, đường nối đó sẽ bị xóa (toggle/undo)"
+Game Level,Level 1,"Stage: 0, Size: 3x3, Số điểm: 2 cặp (4 điểm), Số màu: 2"
+Game Level,Level 2,"Stage: 1, Size: 4x4, Số điểm: 2-3 cặp (4-6 điểm), Số màu: 2-3"
+Game Level,Level 3,"Stage: 2, Size: 5x5, Số điểm: 3-4 cặp (6-8 điểm), Số màu: 3-4"
+Game Level,Level N,"Stage: N, Size: (N+3)x(N+3), Độ khó tăng dần theo số lượng cặp điểm và điểm trung gian"
+Game Level,Hệ thống cấp độ,"LevelData được lưu trữ trong LevelList, mỗi level được xác định bằng CurrentStage và CurrentLevel. Khi hoàn thành, UnlockLevel() được gọi để mở khóa level tiếp theo"
+Game Item,Item 1,"Tên: Restart - Mô tả: Nút để bắt đầu lại level hiện tại - Chức năng: ClickedRestart() gọi GameManager.GoToGameplay() để tải lại level"
+Game Item,Item 2,"Tên: Back - Mô tả: Nút quay lại menu chính - Chức năng: ClickedBack() gọi GameManager.GoToMainMenu()"
+Game Item,Item 3,"Tên: Next Level - Mô tả: Nút chuyển sang level tiếp theo (chỉ hoạt động sau khi thắng) - Chức năng: ClickedNextLevel() kiểm tra hasGameFinished trước khi cho phép chuyển level"
+Game Item,Item 4,"Tên: Win Text - Mô tả: Thông báo thắng cuộc - Chức năng: Hiển thị khi tất cả điều kiện thắng được đáp ứng"
+Game Mechanic,Mechanic 1 - Input,"Người chơi sử dụng chuột để kết nối các điểm: GetMouseButtonDown(0) để bắt đầu, GetMouseButton(0) để theo dõi, GetMouseButtonUp(0) để kết thúc"
+Game Mechanic,Mechanic 2 - Raycast Detection,"Khi người chơi kéo chuột, Physics2D.Raycast được sử dụng để phát hiện Node nào đang được người chơi tương tác"
+Game Mechanic,Mechanic 3 - Path Validation,"Mỗi khi kết nối hai điểm, hệ thống kiểm tra tính hợp lệ của đường dẫn để tránh vòng lặp và vi phạm quy tắc"
+Game Mechanic,Mechanic 4 - Auto Cleanup,"Khi một cạnh bị xóa, toàn bộ phân nhánh không kết nối tới endpoint sẽ tự động bị xóa bỏ (DeleteNode())"
+Game Mechanic,Mechanic 5 - Loop Prevention,"Hệ thống kiểm tra bậc 3 (IsDegreeThree) để phát hiện và xóa các cấu hình có thể tạo vòng lặp"
+Game Mechanic,Mechanic 6 - Edge Swapping,"Nếu endpoint hoặc điểm trung gian đã có đủ cạnh, cạnh cũ sẽ bị thay thế bằng cạnh mới (Smart Connection)"
+Game Mechanic,Mechanic 7 - Win Condition Check,"CheckWin() tự động kiểm tra điều kiện thắng sau mỗi hành động của người chơi"
+Game Mechanic,Mechanic 8 - Level Progression,"Khi thắng, UnlockLevel() được gọi, cho phép người chơi chuyển sang level tiếp theo"
+Core Loop,Bước 1 - Khởi tạo,"1. GameManager tải level data
+2. GameplayManager spawn board và nodes
+3. Hiển thị level title
+4. Người chơi sẵn sàng chơi"
+Core Loop,Bước 2 - Input Detection,"1. Người chơi nhấn chuột lên một điểm
+2. IsClickable được kiểm tra (phải là endpoint hoặc điểm với 1+ cạnh)
+3. Highlight hiệu ứng kéo chuột xuất hiện"
+Core Loop,Bước 3 - Path Creation,"1. Khi kéo chuột, raycast phát hiện điểm mới
+2. UpdateInput() được gọi để tạo kết nối
+3. Hệ thống kiểm tra tính hợp lệ của đường dẫn
+4. Cleanup tự động nếu cần"
+Core Loop,Bước 4 - Win Check,"1. Sau mỗi action, CheckWin() được gọi
+2. Nếu thắng: hiển thị Win Text, khóa input, unlock level
+3. Người chơi có thể: chuyển level, restart, hoặc back"
+Core Loop,Bước 5 - Level End,"1. Người chơi chọn Next Level → Tải level tiếp theo
+2. Hoặc chọn Restart → Reset level hiện tại
+3. Hoặc chọn Back → Quay lại menu chính"
+Architecture,Namespace,"Connect.Core (GameManager, GameplayManager, Node) - Connect.Generator (LevelGenerator, GridData) - Connect.Common (LevelData, Edge)"
+Architecture,Main Classes,"1. GameManager - Quản lý trạng thái game, cấp độ, scene load
+2. GameplayManager - Quản lý gameplay, input, win condition
+3. Node - Đại diện cho một điểm trên board, quản lý cạnh và kết nối
+4. LevelData - Chứa dữ liệu level (list Edge)
+5. Edge - Chứa StartPoint và EndPoint của mỗi cặp điểm cùng màu"
+Architecture,Data Flow,"LevelData.Edges (danh sách cặp điểm) → GetColorId() xác định Node nào là endpoint → SetEdge() thiết lập các cạnh có thể → UpdateInput() tạo/xóa kết nối → CheckWin() kiểm tra thắng"
+Design Notes,Note 1 - Difficulty Scaling,"Độ khó tăng tuyến tính với kích thước board (3x3 → 4x4 → 5x5...). Số lượng cặp điểm và điểm trung gian cũng tăng"
+Design Notes,Note 2 - Level Generation,"LevelGenerator có nhiều phương pháp tạo level: GraphRandom, AllNeighbours, BubbleRemove, OptimisedNeighbours, BranchReduction. Mỗi phương pháp tạo các puzzle có đặc điểm khác nhau"
+Design Notes,Note 3 - Color System,"Mỗi cặp endpoint có một màu duy nhất. NodeColors list chứa các màu có sẵn, màu được lấy bằng colorId % count"
+Design Notes,Note 4 - UI Feedback,"Highlight kéo chuột, highlight giải pháp, win text notification, level title display"
+Design Notes,Note 5 - Undo Mechanism,"Người chơi có thể bấm Restart để hoàn tác tất cả. Không có undo từng bước, nhưng có thể xóa đường nối bằng cách kết nối lại hai điểm đã nối"
+Design Notes,Note 6 - Physics,"Sử dụng Physics2D.Raycast để phát hiện click trên các Node. Các Node được tạo với Collider"
+Design Notes,Note 7 - Future Features,"Có thể thêm: Power-ups, Hints system, Undo step-by-step, Hint system, Time limit, Scoring system, Online leaderboard"
