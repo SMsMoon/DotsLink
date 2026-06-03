@@ -1,0 +1,127 @@
+Section,Category,Key,Description,Details
+TỔNG QUAN,Thông Tin Cơ Bản,Tên trò chơi,DotsLink,Puzzle / Flow Connector
+TỔNG QUAN,Thông Tin Cơ Bản,Thể loại,Puzzle / Flow Connector,Kết nối các chấm cùng màu
+TỔNG QUAN,Thông Tin Cơ Bản,Đối tượng người chơi,Casual players & Puzzle enthusiasts,Mọi độ tuổi
+TỔNG QUAN,Mô Tả Gameplay,Mục tiêu cơ bản,Kết nối tất cả cặp điểm cùng màu bằng đường liên tục,Không cho phép đường giao nhau
+TỔNG QUAN,Mô Tả Gameplay,Ràng buộc chính,Các đường không được giao nhau,Nếu overlap → đường bị loại
+TỔNG QUAN,Mô Tả Gameplay,Điều kiện thắng,Kết nối hoàn tất + thỏa tất cả điều kiện → THẮNG,Hiển thị "YOU WIN!"
+BOARD,Kích Thước Lưới,Stage 1,4×4,50 levels - ⭐ Beginner - 1-2 phút
+BOARD,Kích Thước Lưới,Stage 2,5×5,50 levels - ⭐⭐ Easy - 2-3 phút
+BOARD,Kích Thước Lưới,Stage 3,6×6,50 levels - ⭐⭐ Easy–Medium - 3-4 phút
+BOARD,Kích Thước Lưới,Stage 4,7×7,50 levels - ⭐⭐⭐ Medium - 4-5 phút
+BOARD,Kích Thước Lưới,Stage 5,8×8,50 levels - ⭐⭐⭐ Medium–Hard - 5-7 phút
+BOARD,Kích Thước Lưới,Stage 6,9×9,50 levels - ⭐⭐⭐⭐ Hard - 7-10 phút
+BOARD,Kích Thước Lưới,Stage 7,10×10,50 levels - ⭐⭐⭐⭐⭐ Very Hard - 10-15 phút
+BOARD,Cấu Hình,Tổng Level,350 levels,7 stages × 50 levels/stage
+BOARD,Cấu Hình,Camera Type,Orthographic,Size = gridSize + 2
+BOARD,Cấu Hình,Camera Position,(gridSize/2 gridSize/2 -10),Căn chỉnh bảng vào giữa màn hình
+BOARD,Cấu Hình,Board Display Size,(gridSize + 0.08 gridSize + 0.08),Mỗi ô = 1×1 unit
+BOARD,Hệ Thống Màu,NodeColors,List<Color> trong GameplayManager,Định nghĩa tất cả màu sử dụng
+BOARD,Hệ Thống Màu,Công Thức Tính Màu,ActualColor = NodeColors[colorId % NodeColors.Count],Gán màu thực cho node
+BOARD,Hệ Thống Màu,Highlight Alpha,0.4f (40%),Độ trong suốt của vùng highlight
+NODE,Định Nghĩa,Thuộc Tính,colorId (int) - ID nhóm màu,Xác định màu node
+NODE,Định Nghĩa,Thuộc Tính,position (Vector2Int) - Tọa độ lưới,Vị trí node trên board
+NODE,Định Nghĩa,Thuộc Tính,connectedEdges (Dictionary) - Các cạnh liên kết,Danh sách các đường kết nối
+NODE,Định Nghĩa,Thuộc Tính,connectedNodes (List<Node>) - Node đã kết nối,Các node trong cùng đường
+NODE,Định Nghĩa,Thuộc Tính,IsEndNode (bool) - Là nút đầu/cuối,True = End Node False = Intermediate
+NODE,Định Nghĩa,Thuộc Tính,IsClickable (bool) - Có thể nhấn,End Node hoặc có kết nối → clickable
+NODE,Loại Node,End Node,IsEndNode=True IsClickable=True,Hai đầu mút của một cặp - cần đúng 1 kết nối
+NODE,Loại Node,Intermediate Node,IsEndNode=False IsClickable=Phụ thuộc,Điểm trung gian - cần đúng 2 kết nối
+NODE,Loại Node,Empty Node,IsEndNode=False IsClickable=False,Vị trí trống trên lưới - không hiển thị
+EDGE,Định Nghĩa,edgeId,ID = colorId,Xác định đường theo màu
+EDGE,Định Nghĩa,points,List<Vector2Int>,Tất cả ô mà đường đi qua
+EDGE,Định Nghĩa,startPoint,points[0],Điểm bắt đầu của đường
+EDGE,Định Nghĩa,endPoint,points[last],Điểm kết thúc của đường
+EDGE,Định Nghĩa,color,NodeColors[colorId],Màu hiển thị của đường
+EDGE,Tính Chất,Hướng Hiển Thị,4 hướng: Up Down Left Right,Sprite định hướng cho mỗi ô
+EDGE,Tính Chất,Max Connections Per Node,Tối đa 2 cạnh (End Node chỉ có 1),Ngăn chặn độ bậc > 2
+EDGE,Tính Chất,Overlap Rule,Không phép 2 đường cùng ô,Nếu chồng → đường bị loại
+EDGE,Tính Chất,Min Length,≥ 3 ô,start + middle + end
+WIN_CONDITION,Điều Kiện Thắng,Điều Kiện 1,Mỗi cặp điểm cùng màu đều kết nối,End Node của mỗi màu phải có 1 đường
+WIN_CONDITION,Điều Kiện Thắng,Điều Kiện 2,Mỗi End Node có đúng 1 kết nối,Không có End Node thừa
+WIN_CONDITION,Điều Kiện Thắng,Điều Kiện 3,Mỗi Intermediate Node có đúng 2 kết nối,Không có node nằm một mình
+WIN_CONDITION,Điều Kiện Thắng,Điều Kiện 4,Không có 2 đường giao nhau,Không overlap
+WIN_CONDITION,Điều Kiện Thắng,Kết Quả,Tất cả điều kiện TRUE → WIN,Hiển thị YOU WIN! Unlock level tiếp theo
+WIN_CONDITION,Điều Kiện Thua,Điều Kiện Thua,Không có điều kiện thua,Người chơi thử lại vô hạn
+INPUT,Luồng Nhập Chuột,MouseButtonDown,Reset startNode,Xóa lựa chọn trước đó
+INPUT,Luồng Nhập Chuột,MouseButton Hold (Chưa có start),Raycast tìm node bên dưới chuột,Nếu hợp lệ → set startNode
+INPUT,Luồng Nhập Chuột,MouseButton Hold (Có start),Update highlight theo chuột,Raycast tìm neighbor node
+INPUT,Luồng Nhập Chuột,MouseButton Hold (Connect),Kiểm tra điều kiện kết nối,Attempt connect nếu hợp lệ
+INPUT,Luồng Nhập Chuột,MouseButtonUp,Deselect & ẩn highlight,Reset về trạng thái ban đầu
+INPUT,Điều Kiện Clickable,End Node,IsEndNode = True,Luôn có thể nhấn
+INPUT,Điều Kiện Clickable,Intermediate Node,connectedNodes.Count > 0,Chỉ clickable nếu đã có kết nối
+INPUT,Mobile Support,Touch Input,Map touch → raycast tương tự mouse,Hoạt động giống mouse input
+CONNECTION_LOGIC,Bước 1,Chọn Node,Raycast từ chuột tìm End Node hoặc Intermediate có kết nối,Nếu tìm thấy & hợp lệ → set startNode
+CONNECTION_LOGIC,Bước 2,Di Chuyển,Cập nhật vị trí highlight theo chuột (real-time),Raycast tìm neighbor gần nhất
+CONNECTION_LOGIC,Bước 3,Neighbor Check,Neighbor có trong connectedEdges[startNode]?,Nếu NO → không kết nối
+CONNECTION_LOGIC,Bước 4,Color Check,startNode.colorId == neighbor.colorId?,Nếu YES (cùng màu) → tiếp tục / Nếu NO → dừng sau 1 ô
+CONNECTION_LOGIC,Bước 5,Degree Check,neighbor.connectedNodes.Count >= 2?,Nếu YES → Toggle remove / Nếu NO → tiếp tục
+CONNECTION_LOGIC,Bước 6,End Node Overflow,Nếu neighbor là End Node & đã có 1 kết nối,Remove kết nối cũ → Thêm kết nối mới từ startNode
+CONNECTION_LOGIC,Bước 7,Degree-3 Prevention,Phát hiện node sắp có 3 cạnh?,Xóa 2 kết nối cũ nhất → Giữ kết nối mới
+CONNECTION_LOGIC,Bước 8,Auto-removal,Intermediate Node có < 2 kết nối?,Cascade delete từ node → End Node
+CONNECTION_LOGIC,Bước 9,Orphan Removal,Đoạn không kết nối tới End Node?,Xóa toàn bộ orphan
+CONNECTION_LOGIC,Quyết Định,Click Cùng Node 2 Lần,Deselect,Hủy lựa chọn hiện tại
+CONNECTION_LOGIC,Quyết Định,Click Neighbor Cùng Màu,Kết nối tiếp tục,Nếu thỏa Degree Check
+CONNECTION_LOGIC,Quyết Định,Click Neighbor Khác Màu,Kết nối 1 ô rồi dừng,Không lan tiếp
+CONNECTION_LOGIC,Quyết Định,Neighbor Đã Có 2 Kết Nối,Toggle Remove,Xóa cả đường hiện tại
+CONNECTION_LOGIC,Quyết Định,End Node Nhận 2 Kết Nối,Remove Non-End Cũ,Giữ End-to-End connection
+CONNECTION_LOGIC,Quyết Định,Phát Hiện Degree-3,Remove 2 Oldest,Prevent illegal state
+WIN_CHECK,Step 1,SolveHighlight(),Gọi SolveHighlight() trên tất cả node,Tô sáng tất cả đường hoàn thành
+WIN_CHECK,Step 2,Duyệt Node,FOR EACH node kiểm tra điều kiện,End Node: count==1 / Intermediate: count==2
+WIN_CHECK,Step 3,Kiểm Tra Overlap,Có 2 đường cùng ô?,Nếu YES → return false
+WIN_CHECK,Step 4,Kiểm Tra Connectivity,Mỗi đường kết nối từ End → End?,Có orphan? → return false
+WIN_CHECK,Kết Quả,Tất Cả ✓,isWinning = true,UnlockLevel / ShowWinScreen / DisableInput
+WIN_CHECK,Kết Quả,Có ✗,isWinning = false,KeepGameActive
+GAME_FLOW,Main Menu,Start,Title Panel + Play button,Click Play → Stage Select
+GAME_FLOW,Stage Select,Screen,7 buttons (Stage 1..7),Click Stage → Level Select
+GAME_FLOW,Level Select,Screen,50 buttons (Locked/Unlocked),Click Level → Load Gameplay
+GAME_FLOW,Gameplay,Loading,Load LevelData + Spawn Board,Initialize game state
+GAME_FLOW,Gameplay,Main Loop,Player interaction,Input handling + Connection logic + CheckWin()
+GAME_FLOW,Gameplay,Action 1,Click Restart,Reset Board → Stay in Gameplay
+GAME_FLOW,Gameplay,Action 2,Click Back,Return to Main Menu
+GAME_FLOW,Win Screen,Trigger,CheckWin() == true,Show win screen after winning
+GAME_FLOW,Win Screen,Display,YOU WIN! + Highlight paths + stats,Unlock next level
+GAME_FLOW,Win Screen,Action 1,Click Next Level,Go to Level Select
+GAME_FLOW,Win Screen,Action 2,Click Restart,Reset board in Gameplay
+GAME_FLOW,Win Screen,Action 3,Click Back,Go to Stage Select
+PROGRESSION,Level Structure,Level Naming,LevelXY,X=Stage (1-7) Y=Level (1-50)
+PROGRESSION,Level Structure,Tổng Level,350 levels,7 stages × 50 levels
+PROGRESSION,Unlock System,Quy Tắc,Level 1.1 mở sẵn,Để mở Level N → phải hoàn thành Level N-1
+PROGRESSION,Unlock System,Storage,PlayerPrefs: Level{Stage}{Level},0 = locked 1 = unlocked
+PROGRESSION,Unlock System,Loop,Sau Stage 7,Vòng lại Stage 1 (infinite)
+DIFFICULTY_EDGE,Min Edges,Stage 1,2 edges,Beginner puzzle
+DIFFICULTY_EDGE,Min Edges,Stage 2,3 edges,Easy puzzle
+DIFFICULTY_EDGE,Min Edges,Stage 3,4 edges,Easy-Medium puzzle
+DIFFICULTY_EDGE,Min Edges,Stage 4,5 edges,Medium puzzle
+DIFFICULTY_EDGE,Min Edges,Stage 5,6 edges,Medium-Hard puzzle
+DIFFICULTY_EDGE,Min Edges,Stage 6,7 edges,Hard puzzle
+DIFFICULTY_EDGE,Min Edges,Stage 7,8 edges,Very hard puzzle
+DIFFICULTY_EDGE,Max Edges,Stage 1,3 edges,Beginner puzzle
+DIFFICULTY_EDGE,Max Edges,Stage 2,4 edges,Easy puzzle
+DIFFICULTY_EDGE,Max Edges,Stage 3,5 edges,Easy-Medium puzzle
+DIFFICULTY_EDGE,Max Edges,Stage 4,6 edges,Medium puzzle
+DIFFICULTY_EDGE,Max Edges,Stage 5,7 edges,Medium-Hard puzzle
+DIFFICULTY_EDGE,Max Edges,Stage 6,8 edges,Hard puzzle
+DIFFICULTY_EDGE,Max Edges,Stage 7,9 edges,Very hard puzzle
+RULES,Rule 1,Match Colors,Chỉ nối các điểm cùng màu,Mỗi cặp phải có đường liên tục
+RULES,Rule 2,No Overlapping,Không cho phép đường giao nhau,Nếu giao nhau → đường bị loại
+RULES,Rule 3,End Node Constraint,End Node phải có đúng 1 kết nối,Nếu có kết nối thứ 2 → remove kết nối cũ
+RULES,Rule 4,Intermediate Node Constraint,Non-end nodes tối đa 2 kết nối,Ngăn chặn độ bậc > 2
+RULES,Rule 5,Degree-3 Prevention,Ngăn chặn node có 3 kết nối,Khi xảy ra → xóa 2 kết nối cũ nhất
+RULES,Rule 6,Color Barrier,Không trộn màu trong cùng 1 đường,Nếu khác màu → đường dừng lại
+RULES,Rule 7,Connectivity Requirement,Tất cả đường trung gian phải nối tới End Node,Không để orphan
+RULES,Rule 8,Auto-removal,Các đường không hợp lệ tự động bị xóa,Cascade delete khi cần
+VISUAL,Display,Background,Lưới 1×1 cells màu xám/trắng,Reference visual grid
+VISUAL,Display,End Nodes,Điểm tròn đầy đủ màu bán kính ~0.2 unit,Các chấm đầu mút
+VISUAL,Display,Intermediate Nodes,4 sprite hướng (Up/Down/Left/Right),Hiển thị theo hướng kết nối
+VISUAL,Display,Edges,Đường nối 4 hướng màu theo colorId,Path visualization
+VISUAL,Display,Highlight,Sprite semi-transparent alpha=0.4 theo chuột,Real-time preview
+VISUAL,Animation,Path Drawing,Vẽ đường smooth khi kết nối,Feedback visual
+VISUAL,Animation,Node Pop-in,Node hiệu ứng xuất hiện,Initial feedback
+VISUAL,Animation,Win Celebration,Tô sáng + flash + particle (optional),Victory feedback
+VISUAL,Animation,Button Feedback,Feedback khi nhấn nút,Interactive feedback
+AUDIO,SFX,Connection,Beep/chime sound,When path connects
+AUDIO,SFX,Wrong Move,Error buzz sound,When invalid move
+AUDIO,SFX,Deletion,Pop/whoosh sound,When path deleted
+AUDIO,Music,Win,Victory fanfare,When puzzle solved
+AUDIO,Music,Background,Ambient music,During gameplay
