@@ -1,0 +1,158 @@
+PHẦN,NỘI DUNG,MÔ TẢ CHI TIẾT
+Overview,Tên Game,BlockAdventured
+Overview,Thể loại,Puzzle / Block Matching Game (giống Tetris/Candy Crush)
+Overview,Nền tảng,Unity (C#, ShaderLab)
+Overview,Mô tả tổng quát,"BlockAdventured là một trò chơi puzzle dạng xếp khối (block placement game) trong đó người chơi cần kéo-thả (drag-drop) các hình dạng khối để xếp lên một lưới 9x9. Khi hoàn thành hàng hoặc cột (3 ô liên tiếp cùng màu), chúng sẽ biến mất và tạo ra điểm số. Trò chơi kết thúc khi không còn chỗ để đặt các hình khối tiếp theo."
+Overview,Cơ chế chơi chính,"1. Người chơi nhìn 3 hình khối đang chờ (Shape Queue)
+2. Kéo-thả hình khối từ vùng chứa lên lưới (Grid)
+3. Hoàn thành hàng/cột/3x3 box để xóa các ô
+4. Lặp lại cho đến khi game over"
+Overview,Độ khó tăng dần,"Càng nhiều điểm, hiệu ứng bonus hoạt động (Color Bonus). Khi đạt threshold, hình khối thay đổi màu, tạo độ khó tăng dần."
+Overview,Đối tượng người chơi,"Người chơi thích puzzle logic, block games (Tetris), Candy Crush, những ai muốn thử thách tư duy chiến lược"
+
+Game Element,ID,001
+Game Element,Tên,Lưới (Grid)
+Game Element,Mô tả,"Lưới 9x9 chứa các ô vuông (GridSquare), đây là không gian chính để đặt hình khối"
+Game Element,Chức năng chính,"Là sân chơi chính - người chơi xếp các hình khối lên đây"
+Game Element,Note,"Tạo bởi Grid.cs, mỗi ô là một GameObject GridSquare, có các trạng thái: rỗng, occupied, selected"
+Game Element,IMG,Assets/Art/Grid hoặc background
+
+Game Element,ID,002
+Game Element,Tên,Ô Lưới (GridSquare)
+Game Element,Mô tả,"Đơn vị nhỏ nhất trên lưới, có thể chứa một phần của hình khối hoặc rỗng"
+Game Element,Chức năng chính,"Tạo thành grid, chứa dữ liệu về màu sắc (Config.SquareColor) và trạng thái (occupied/empty)"
+Game Element,Note,"GridSquare có hooverImage, activeImage, normalImage. hooverImage hiện khi hình khối hover trên nó"
+Game Element,IMG,Assets/Art/GridSquare hoặc sprite
+
+Game Element,ID,003
+Game Element,Tên,Hình Khối (Shape)
+Game Element,Mô tả,"Các hình dạng khác nhau (Tetris-like) được tạo từ ShapeData, có thể là I-shape, L-shape, O-shape, v.v."
+Game Element,Chức năng chính,"Đối tượng chính mà người chơi kéo-thả để xếp lên grid. Mỗi shape có màu riêng"
+Game Element,Note,"Shape.cs quản lý từng hình khối, dùng ShapeData để xác định cấu trúc, có tính năng drag-drop"
+Game Element,IMG,Assets/Art/Shapes hoặc prefab
+
+Game Element,ID,004
+Game Element,Tên,Ô Hình Khối (ShapeSquare)
+Game Element,Mô tả,"Đơn vị nhỏ nhất của một hình khối, tương ứng với một ô trên grid"
+Game Element,Chức năng chính,"Tạo thành hình khối, khi được đặt lên grid thì trở thành GridSquare occupied"
+Game Element,Note,"ShapeSquare.cs có occupiedImage để hiển thị khi ô được chiếm dụng"
+Game Element,IMG,Assets/Art/ShapeSquares hoặc sprite
+
+Game Element,ID,005
+Game Element,Tên,Dữ Liệu Hình Khối (ShapeData)
+Game Element,Mô tả,"ScriptableObject chứa cấu trúc của mỗi hình khối (rows, columns, và board boolean array)"
+Game Element,Chức năng chính,"Lưu trữ các mẫu hình khối được thiết kế sẵn. board[i][j] = true nếu ô đó là phần của hình"
+Game Element,Note,"Có phương thức CreateNewBoard() và Clear() để quản lý dữ liệu. Được sử dụng bởi Shape.cs"
+Game Element,IMG,Không có visual
+
+Game Element,ID,006
+Game Element,Tên,Dữ Liệu Texture Ô (SquareTextureData)
+Game Element,Mô tả,"ScriptableObject quản lý màu sắc và texture của các ô tại các mức điểm số khác nhau"
+Game Element,Chức năng chính,"Lưu danh sách các TextureData (sprite + màu), theo dõi threshold điểm để thay đổi màu"
+Game Element,Note,"activeSquareTextures chứa các màu sắc có sẵn. Màu thay đổi khi đạt tresholdVal"
+Game Element,IMG,Assets/Art/SquareTextures
+
+Game Element,ID,007
+Game Element,Tên,Hộp Ý (Bonus)
+Game Element,Mô tả,"Các ô bonus có màu đặc biệt có thể giúp xóa toàn bộ hàng/cột"
+Game Element,Chức năng chính,"Tạo ra điểm số bonus khi được sử dụng thông minh"
+Game Element,Note,"Bonus.cs định nghĩa bonus có màu nào. ShouldPlayColorBonusAnimation() tính điểm bonus"
+Game Element,IMG,Assets/Art/Bonus
+
+Game Element,ID,008
+Game Element,Tên,Chỉ Báo Dòng/Cột (LineIndicator)
+Game Element,Mô tả,"Theo dõi các dòng, cột, và 3x3 box để phát hiện dòng hoàn thành"
+Game Element,Chức năng chính,"Dữ liệu 2D array cho rows, columns, và 3x3 squares (giống Sudoku)"
+Game Element,Note,"LineIndicator.cs cung cấp phương thức GetVerticalLine() và 3D dữ liệu để kiểm tra completion"
+Game Element,IMG,Không có visual
+
+Điều kiện thắng thua,Điều kiện thua,"Khi không còn hình khối nào có thể được đặt lên grid. Kiểm tra bằng CheckIfPlayerLost():
+- Duyệt qua tất cả 3 hình khối đang chờ (ShapeStorage.shapeList)
+- Nếu không có hình khối nào có thể được đặt (CheckIfShapeCanBePlacedOnGrid() trả về false) thì game over
+- GameEvent.GameOver(false) được gọi, hiển thị popup thua cuộc"
+
+Điều kiện thắng thua,Điều kiện thắng,"Không có điều kiện thắng tuyệt đối - game là endless mode. Mục tiêu là đạt điểm số cao nhất có thể trước khi game over.
+- Người chơi có thể hoàn thành hàng/cột/3x3 box để xóa ô và tạo không gian trống"
+
+Điều kiện thắng thua,Cơ chế tính điểm,"CheckIfAnyCompletedLine():
+1. Duyệt qua tất cả rows, columns, 3x3 squares
+2. Gọi CheckIfSquaresAreCompleted() để đếm số dòng hoàn thành
+3. Nếu completedLines >= 2: hiện congratulation writings
+4. totalScores = completedLines * 10
+5. bonusScores = ShouldPlayColorBonusAnimation() (thêm điểm khi tất cả 3 hình khối được đặt)
+6. GameEvent.AddScores(totalScores + bonusScores)"
+
+Điều kiện thắng thua,Game Over Screen,"Khi GameEvent.GameOver được trigger:
+- Hiển thị GameOverPopup
+- Hiển thị losePopup (trong popup)
+- Nếu newBestScore: hiển thị newBestScorePopup
+- Người chơi có thể restart hoặc quay lại menu"
+
+Game Rule,Quy tắc cơ bản 1,"Người chơi kéo-thả (drag-drop) một trong 3 hình khối từ vùng chứa lên grid. Shape có tính năng drag được implement thông qua IBeginDragHandler, IDragHandler, IEndDragHandler"
+
+Game Rule,Quy tắc cơ bản 2,"Hình khối chỉ có thể được đặt nếu tất cả ô của nó nằm trên các vị trí trống (GridSquare.SquareOccupied == false)"
+
+Game Rule,Quy tắc cơ bản 3,"Khi đặt hình khối lên grid, mọi ô của nó sẽ tô màu (PlaceShapeOnBoard) bằng màu của hình khối"
+
+Game Rule,Quy tắc cơ bản 4,"Khi hàng/cột hoàn toàn lấp đầy (9 ô cùng màu trong 1 dòng), chúng được xóa và cộng điểm"
+
+Game Rule,Quy tắc cơ bản 5,"Khi 3x3 box hoàn toàn lấp đầy (giống Sudoku), chúng được xóa"
+
+Game Rule,Quy tắc cơ bản 6,"Màu sắc của lưới thay đổi theo điểm số. Khi đạt threshold, UpdateSquareColor() được gọi, thay đổi currentColor thành _nextColor"
+
+Game Rule,Quy tắc cơ bản 7,"Khi hoàn thành hàng/cột và điểm >= threshold, ShowBonusScreen được trigger. Bonus score = điểm từ việc hoàn thành 1 hàng"
+
+Game Rule,Quy tắc cơ bản 8,"Người chơi không thể hoàn tác hoặc xóa các khối đã đặt. Mỗi hành động là vĩnh viễn cho đến khi game over"
+
+Game Level,Level System,"BlockAdventured không có level system rõ ràng. Đây là endless game mode với tăng độ khó tự động thông qua color changes"
+
+Game Level,Difficulty Scaling,"Độ khó tăng không phải bằng cách thay đổi grid mà bằng:
+1. Threshold tăng dần (StartTresholdVal = 10, sau đó tresholdVal = 10 + currentScore)
+2. Màu lưới thay đổi 5 lần (blue → green → red → yellow → purple → blue)
+3. Dải màu khác nhau tạo cảm giác khác nhau, làm người chơi bị mù màu do thay đổi"
+
+Game Level,Progression,"Không có progression tuyến tính. Người chơi chơi cho đến khi lose. Mỗi game có best score được lưu."
+
+Game Item,Item 1,"Tên: Best Score | Mô tả: Điểm cao nhất đã đạt | Chức năng: BestScoreBar hiển thị tiến độ từ currentScore đến bestScore"
+
+Game Item,Item 2,"Tên: Current Score | Mô tả: Điểm hiện tại | Chức năng: UpdateScoreText() cập nhật Text UI với currentScores_"
+
+Game Item,Item 3,"Tên: Shape Queue | Mô tả: 3 hình khối tiếp theo | Chức năng: Người chơi chọn 1 trong 3 để đặt"
+
+Game Item,Item 4,"Tên: Shape Storage | Mô tả: Lưu trữ danh sách các hình khối | Chức năng: ShapeStorage.shapeList chứa tối đa 3 shape"
+
+Game Item,Item 5,"Tên: Congratulation Writings | Mô tả: Hiệu ứng text khi hoàn thành >=2 dòng | Chức năng: Hiển thị ngẫu nhiên các thông báo"
+
+Game Mechanic,Mechanic 1,"Drag Drop System - Shape implement IBeginDragHandler, IDragHandler, IEndDragHandler để cho phép drag-drop"
+
+Game Mechanic,Mechanic 2,"Shape Placement Validation - CheckIfShapeCanBePlacedOnGrid() kiểm tra xem mọi ô có thể được đặt"
+
+Game Mechanic,Mechanic 3,"Grid Collision Detection - Sử dụng Physics2D trigger (OnTriggerEnter2D, OnTriggerStay2D, OnTriggerExit2D)"
+
+Game Mechanic,Mechanic 4,"Line Completion Detection - Sau khi đặt shape, CheckIfAnyCompletedLine() kiểm tra và xóa hoàn thành dòng"
+
+Game Mechanic,Mechanic 5,"Color Bonus System - ShouldPlayColorBonusAnimation() tính bonus điểm khi tất cả 3 shape được đặt"
+
+Game Mechanic,Mechanic 6,"Dynamic Color Changing - UpdateSquareColor() thay đổi màu lưới khi đạt threshold"
+
+Game Mechanic,Mechanic 7,"Game Over Detection - CheckIfPlayerLost() phát hiện khi không shape nào có thể đặt"
+
+Game Mechanic,Mechanic 8,"Shape Queue System - ShapeStorage.RequestNewShapes() tạo 3 shape mới"
+
+Game Mechanic,Mechanic 9,"Best Score Persistence - BinaryDataStream lưu/load best score"
+
+Game Mechanic,Mechanic 10,"UI Event System - GameEvent sử dụng static delegate để gửi events"
+
+Core Loop,Bước 1,"Game Start - Grid khởi tạo, ShapeStorage tạo 3 hình khối, UI sẵn sàng"
+
+Core Loop,Bước 2,"Shape Selection - Người chơi chọn 1 trong 3 hình khối để kéo-thả"
+
+Core Loop,Bước 3,"Drag & Drop - Kéo hình khối, hiển thị hover effect trên grid"
+
+Core Loop,Bước 4,"Shape Placement - Kiểm tra tính hợp lệ, đặt hình khối, deactivate"
+
+Core Loop,Bước 5,"Completion Check - Kiểm tra hoàn thành dòng/cột/box, xóa, cộng điểm"
+
+Core Loop,Bước 6,"Game Over Check - Kiểm tra nếu không shape nào có thể đặt"
+
+Core Loop,Bước 7,"Next Shape Generation - Tạo hình khối mới, quay lại Bước 2"
